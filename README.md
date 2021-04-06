@@ -1,2 +1,2 @@
 # baekjoon
-Baekjoon Online Judge Solution
+백준 온라인 저지 문제풀이 
