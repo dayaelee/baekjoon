@@ -5,6 +5,7 @@ if n==0:
 ycount=0
 kcount=0
 
+
 for i in range(n):
   for i in range(9):
     a=input().split()
