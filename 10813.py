@@ -1,6 +1,6 @@
 n, m = map(int, input().split())
 
-basket=[]
+basket = []
 
 for i in range(1, n+1):
     basket.insert(i, i)
