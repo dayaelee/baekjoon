@@ -11,4 +11,5 @@ for i in range(0, m):
     basket[i-1] = basket[j-1]
     basket[j-1] = tmp
 
+
 print(*basket)
