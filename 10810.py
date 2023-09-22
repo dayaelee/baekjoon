@@ -13,4 +13,4 @@ for i in range(0, m):
     #print(basket)
 
 
-print(basket)
+print(*basket)
