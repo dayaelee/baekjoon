@@ -1,33 +1,32 @@
-n = int(input())
+# n을 기록할 True, False 생성
+# 0과 1은 소수가 아니니까 False로 미리 기록
+n = 1000000
+listTF = [False, False] + [True] * (n-1)
 
-nlist = []
+#T가 나온 즉, 소수를 담을 list 생성
+primes = []
 
-nlist = list(map(int, input().split()))
 
-count = 0
-for i in range(0, len(nlist)):
-    j = 1
-    if nlist[i] == 1 or nlist[i] == 0:
-        pass
-    elif nlist[i] == 2 or nlist[i] == 3 or nlist[i] ==5 :
-        count= count+1
-    else:
-        while 1:
-            if j+1==1001:
-                count = count+1
-                break
-            else:
-                if j == 1:
-                    j = j+1
-                    pass
-                else:
-                    if nlist[i] % j == 0:
-                        if j== nlist[i]:
-                            count= count+1
-                            break
-                        else:
-                            pass
-                            break
-                    else:
-                        j=j+1
-print(count)
+# 입력받을 a, b 생성
+a, b = map(int, input().split())
+
+
+# Ture, False를 생성할 루틴 
+# 2부터 ~ b까지 반복
+# 첫번째 자기 자신은 넣고 자기자신의 배수들은 모두 제외 
+for i in range(2, b+1):
+    if listTF[i]==True:
+        # print(i)
+        primes.append(i)
+        for j in range(i*2, b+1, i):
+            listTF[j]=False
+            # print("listTF[",j,"]", listTF[j])
+            # print("j",j)
+
+# print(primes)
+
+# a부터 b까지 출력 
+for i in range(0, len(primes)):
+    if primes[i] >= a and primes[i]<=b:
+        print(primes[i])
+
