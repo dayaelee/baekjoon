@@ -25,6 +25,7 @@ for i in range(2, b+1):
 
 # print(primes)
 
+
 # a부터 b까지 출력 
 for i in range(0, len(primes)):
     if primes[i] >= a and primes[i]<=b:

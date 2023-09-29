@@ -16,3 +16,4 @@ for i in range(0, 4):
         minimum = num[i]
 
 print(minimum)
+#x, y가 w, h에 포함된다고 생각하고 짬 그 외의 경우는 고려안했음 
