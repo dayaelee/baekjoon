@@ -1,35 +1,50 @@
-def work():
-    st1 = None
-    result = []
-    while st1 != ".":
-        st1 = input("")
+while 1:
+    s = input()
+    if len(s)==1 and s[-1]=='.':
+        break
 
-        s_list = []
-        replace_list = []
+    if s[-1]!='.':
+        while 1:
+            plus = input()
+            s+=plus
+            if plus[-1]=='.':
+                break
 
-        for idx, ch in enumerate(st1):
-            if (ord(ch)) == 40 or (ord(ch)) == 41 or (ord(ch)) == 91 or (ord(ch)) == 93 or (ord(ch)) == 123 or\
-                    (ord(ch)) == 125:
-                s_list.append(ch)
-            if ch == ")" or ch == "}" or ch == "]":
-                replace_list.append(ch)
-
-        list_str = ''.join(s_list)
-
-        for erode in replace_list:
-            if erode == ")":
-                list_str = list_str.replace("()", "")
-            elif erode == "}":
-                list_str = list_str.replace("{}", "")
-            elif erode == "]":
-                list_str = list_str.replace("[]", "")
-
-        if list_str == '':
-            result.append('yes')
+    stack=[]
+    check = 0
+    for i in s:
+        if i=='(':
+            stack.append('(')
+        elif i=='[':
+            stack.append('[')
+        elif i==')':
+            if stack:
+                if stack[-1]=='(':
+                    stack.pop()
+                else:
+                    print('no')
+                    check =1
+                    break
+            else:
+                print('no')
+                check = 1
+                break
+        elif i == ']':
+            if stack:
+                if stack[-1]=='[':
+                    stack.pop()
+                else:
+                    print('no')
+                    check = 1
+                    break
+            else:
+                print('no')
+                check = 1
+                break
+    if check ==0:
+        if stack:
+            print('no')
         else:
-            result.append('no')
-    result.pop()
-    print('\n'.join(result))
-
-
-work()
+            print('yes')
+        
+    
