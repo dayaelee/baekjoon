@@ -13,8 +13,6 @@ for j in range(t):
         wm, wn = map(int, input().split())
         mapp[wn][wm] = 1
 
-    #print(mapp)
-
     visited = [[False] * m for _ in range(n)]
 
     list = deque()
