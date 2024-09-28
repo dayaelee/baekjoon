@@ -11,7 +11,7 @@ else:
                 print("Soongsil")
             elif i == 1:
                 print("Korea")
-            elif i == 1:
+            elif i == 2:
                 print("Hanyang")
 
             
