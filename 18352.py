@@ -21,7 +21,6 @@ for i in range(m):
 costs=[1e9 for _ in range(n+1)]
 costs[1]=0
 heap=[]
-
 heapq.heappush(heap, [0, x])
 
 while heap:
