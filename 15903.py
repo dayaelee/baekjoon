@@ -18,28 +18,16 @@ i번 카드엔 ai가 쓰여져 있음
 '''
 
 import heapq
-
 n, m = map(int, input().split())
-
-
 tmp = list(map(int, input().split()))
-
 heapq.heapify(tmp)
-print(tmp)
 
 if m !=0:
     for i in range(m):
         one = heapq.heappop(tmp)
         two = heapq.heappop(tmp)
-        print('one, two', one, two, 'tmp', tmp)
         summ=one+two
         heapq.heappush(tmp, summ)
-        print('be', tmp)
         heapq.heappush(tmp, summ)
-        print('be', tmp)
-        print('af', tmp)
-        print('')
-
-print(tmp)
 print(sum(tmp))
 
