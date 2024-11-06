@@ -58,6 +58,8 @@ def moviePD():
             answer += 1
             if answer == N:
                 return num
+        print('num', num)
         num += 1
+        
 
 print(moviePD())
