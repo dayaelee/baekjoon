@@ -4,8 +4,6 @@ input = sys.stdin.readline
 
 startS = input().strip()
 m = int(input()) # 입력할 명령어의 개수
-totalM=[]
-bag=[]
 startS=list(startS)
 rightS=deque([])
 
@@ -26,3 +24,4 @@ for i in range(m):
     else:
         startS.append(tmp[1])
 print(''.join(startS+list(rightS)))
+
