@@ -1,30 +1,30 @@
+from collections import deque
 n, k = map(int, input().split())
-visited=[False for i in range(200000+1)]
-total =[]
-def bfs(start, end):
-    queue=[[start, 0]]
-    visited[start]= True
-    while queue:
-        value, cnt = queue.pop(0)
-        # print('value', value, 'cnt', cnt)
-        if value == end:
-            total.append(cnt)
+
+visited=[False for _ in range(100001)]
+
+def bfs(start, cnt):
+    q=deque([[start, cnt]])
+    visited[start]=True
+    cnt = 0
+    while q:
+        now, cnt = q.popleft()
+        if now == k:
+            print(cnt)
             break
+
+        if now+1<=100000:
+            if visited[now+1]==False:
+                visited[now+1]=True
+                q.append([now+1, cnt+1])
         
-        if 0<=value +1<=200000:
-            if visited[value+1]==False:
-                visited[value + 1]=True
-                queue.append([value + 1, cnt+1])
-        if 0<=value *2<=200000:
-            if visited[value*2]==False:
-                visited[value * 2]=True
-                queue.append([value * 2, cnt+1])
-        if 0<=value - 1<=200000:
-            if visited[value-1]==False:
-                visited[value - 1]=True
-                queue.append([value - 1, cnt+1])
-        # print(queue)
-    print(total[0])
-        
-        
-bfs(n, k)
+        if now-1>=0:
+            if visited[now-1]==False:
+                visited[now-1]=True
+                q.append([now-1, cnt+1])
+
+        if now*2<=100000:
+            if visited[now*2]==False:
+                visited[now*2]=True
+                q.append([now*2, cnt+1])
+bfs(n, 0)
