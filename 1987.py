@@ -1,34 +1,30 @@
+import sys
 from collections import deque
-n, k = map(int, input().split())
+input = sys.stdin.readline
 
-visited=[False for _ in range(100001)]
+dy=[1, -1, 0, 0]
+dx=[0, 0, -1, 1]
 
-def bfs(start, cnt):
-    q=deque([[start, cnt]])
-    visited[start]=True
-    cnt = 0
-    while q:
-        now, cnt = q.popleft()
-        if now == k:
-            print(cnt)
-            break
+visited=[False for _ in range(26)] # 0번은 쓰지않음
 
-        if now+1<=100000:
-            if visited[now+1]==False:
-                visited[now+1]=True
-                q.append([now+1, cnt+1])
-        
-        if now-1>=0:
-            if visited[now-1]==False:
-                visited[now-1]=True
-                q.append([now-1, cnt+1])
+r, c = map(int, input().split())
+mapp=[list(map(lambda x: ord(x)-65, input().strip())) for i in range(r)]
 
-        if now*2<=100000:
-            if visited[now*2]==False:
-                visited[now*2]=True
-                q.append([now*2, cnt+1])
-bfs(n, 0)
+result = 0
+def backtrack(starty, startx, cnt):
+    global result 
+    result = max(cnt, result)
 
+    for i in range(4):
+        ny = starty + dy[i]
+        nx = startx + dx[i]
 
+        if 0<= ny <len(mapp) and 0 <= nx <len(mapp[0]):
+            realTarget = mapp[ny][nx]
+            if visited[realTarget] == False:
+                visited[realTarget] = True
+                backtrack(ny, nx, cnt+1)
+                visited[realTarget] = False
 
-
+backtrack(0, 0, 1)
+print(result)
