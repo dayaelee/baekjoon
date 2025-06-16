@@ -1,57 +1,91 @@
 import sys
+import itertools
+import copy
 input = sys.stdin.readline
-a=[]
+originA=[]
 n, m, k = map(int, input().split())
 for i in range(n):
-    a.append(list(map(int, input().split())))
-for i in range(k):
-    r, c, s = map(int, input().split())
+    originA.append(list(map(int, input().split())))
 
+pocket=[]
+for ii in range(k):
+    pocket.append(list(map(int, input().split())))
 
 # 가장 왼쪽 윗 칸 (r-s, c-s), 가장 오른쪽 아랫 칸(r+s, c+s)
+case = list(itertools.permutations(pocket, len(pocket)))
+# print(case)
 
-sy, sx = r-s-1, c-s-1
-ey, ex = r+s-1, c+s-1
+result = float("inf")
+for i in case:
+    a=copy.deepcopy(originA)
+    for j in i:
+        r, c, s = j
+        # print("j", j, 'r, s, c ', r, s, c )
 
-def up(sy, sx, ex):
-    keep = a[sy][ex]
-    for i in range(ex, sx, -1):
-        a[sy][i]=a[sy][i-1]
-        print('hi', a[sy][i], a[sy][i-1])
-        for i in range(n):
-            print(a[i])
-        print()
-    return keep, a
+        sy, sx = r-s-1, c-s-1
+        ey, ex = r+s-1, c+s-1
 
-def right(sy, ex, ey, keep):
-    print('a', a)
-    print('ey, ex', ey, ex)
-    keep2 = a[ey][ex]
-    for i in range(ey, sy, -1):
-        a[i][ex]=a[i-1][ex]
-    a[sy][ex]=keep
-    return keep2, a
+        # print('sy, sx, ey, ex', sy, sx, ey, ex)
 
-def down(ey, ex, sx, keep):
-    keep2 = a[ey][sx]
-    for i in range(sx, ex):
-        a[ey][i]=a[ey][i+1]
-    a[ey][ex]=keep
-    return keep2, a
+        def up(sy, sx, ex):
+            # print('up')
+            keep = a[sy][ex]
+            for i in range(ex, sx, -1):
+                a[sy][i]=a[sy][i-1]
+                # print('hi', a[sy][i], a[sy][i-1])
+            # for i in range(n):
+            #     print(a[i])
+            # print()
+            return keep, a
 
-def left(ey, sx, sy, keep):
-    for i in range(sy, ey):
-        a[i][sx]= a[i+1][sx]
-    a[ey][sx]=keep
-    return a
+        def right(sy, ex, ey, keep):
+            # print('right')
+            # print('ey, ex', ey, ex)
+            keep2 = a[ey][ex]
+            for i in range(ey, sy, -1):
+                a[i][ex]=a[i-1][ex]
+            a[sy+1][ex]=keep
+            # for i in range(n):
+            #     print(a[i])
+            # print()
+            return keep2, a
 
-for i in range(s): # 회전 행 수 
-    keep, a = up(sy+i, sx+i, ex-i)
-    keep, a = right(sy+i, ex-i, ey-i, keep)
-    keep, a = down(ey-i, ex-i, sx+i, keep)
-    a = left(ey-i, sx, sy+i, keep)
+        def down(ey, ex, sx, keep):
+            # print('down')
+            keep2 = a[ey][sx]
+            for i in range(sx, ex):
+                a[ey][i]=a[ey][i+1]
+            a[ey][ex-1]=keep
+            # for i in range(n):
+            #     print(a[i])
+            # print()
+            return keep2, a
 
-    if i ==0:
-        for i in range(n):
-            print(a[i])
-        break
+        def left(ey, sx, sy, keep):
+            # print('left')
+            for i in range(sy, ey):
+                a[i][sx]= a[i+1][sx]
+            a[ey-1][sx]=keep
+            # for i in range(n):
+            #         print(a[i])
+            return a
+
+
+        for i in range(s): # 회전 행 수 
+            keep, a = up(sy+i, sx+i, ex-i)
+            keep, a = right(sy+i, ex-i, ey-i, keep)
+            keep, a = down(ey-i, ex-i, sx+i, keep)
+            a = left(ey-i, sx+i, sy+i, keep)
+
+            # print('good')
+            # for i in range(n):
+            #     print(a[i])
+        
+    tmpR=float('inf')
+    for rr in range(len(a)):
+        tmpR = min(tmpR, sum(a[rr]))
+
+    
+    result = min(result, tmpR)
+
+print(result)
