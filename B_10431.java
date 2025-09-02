@@ -1,47 +1,55 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
-        int t = Integer.parseInt(str);
-        for (int i = 0; i < t; i++) {
-            str = br.readLine();
-            int n = Integer.parseInt(str);
 
-            int check = 0;
-            for (int j = 2; j <= 64; j++) {
-                List<Integer> list = new ArrayList<>();
-                if (j != 1) {
-                    int tmp = n;
-                    while(true){
-                        if (tmp/j>=0) {
-                            list.add(tmp % j);
-                            if (tmp/j==0)
+        int p = Integer.parseInt(str);
+
+        for (int i = 0; i < p; i++) {
+            str = br.readLine();
+            StringTokenizer st = new StringTokenizer(str);
+            int[] students = new int[21];
+            int cnt = 0;
+            int answer = 0;
+            int t = -1;
+            for (int j = 0; j < 21; j++) {
+                int inputValue = (Integer.parseInt(st.nextToken()));
+                if (j == 0){
+                    t = inputValue;
+                }
+                if (j==1) {
+                    students[0] = inputValue;
+                    cnt +=1;
+                } else if (j>1) {
+                    for (int k = 0; k < cnt; k++) {
+                        if (students[k]<inputValue) {
+                            if (k==cnt-1){
+                                students[cnt]=inputValue;
+                                cnt+=1;
                                 break;
-                            tmp = tmp / j;
-                        } else{
-                            break;
+                            }
+                        }else{
+                            if(k<cnt){
+                                int nowStart = k;
+                                int nowEnd = cnt-1;
+                                for (int l = nowEnd; l >= nowStart ; l--) {
+                                    students[l+1]=students[l];
+                                    answer+=1;
+                                }
+                                students[nowStart]=inputValue;
+                                cnt+=1;
+                                break;
+                            }
                         }
                     }
                 }
-
-                for (int jjj = 0; jjj < (list.size() / 2); jjj++) {
-                    if (list.get(jjj) == list.get(list.size() - jjj - 1)) {
-                        check = 1;
-                    } else {
-                        check = 0;
-                        break;
-                    }
-                }
-                if (check == 1)
-                    break;
             }
-            System.out.println(check);
+            System.out.println((t)+" "+answer);
         }
     }
 }
