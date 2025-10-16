@@ -1,34 +1,35 @@
-public class B_10989 {
-    
-}
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) throws IOException {
+public class B_10989 {
+
+    public static void main(String[] args) throws IOException{
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
         String str = br.readLine();
+
         int n = Integer.parseInt(str);
 
-        int [] arr = new int[10001];
-
-        for (int i = 0; i < n; i++) {
+        int[] arr = new int[100001];
+        
+        while(n-- > 0){
             str = br.readLine();
-            int inputValue = Integer.parseInt(str);
-            arr[inputValue]+=1;
-
+            arr[Integer.parseInt(str)]+=1;
         }
 
-        StringBuilder sb = new StringBuilder("");
-        for (int i = 0; i < 10001; i++) {
+        for (int i = 1; i<10001; i++ ){
             if (arr[i]>=1){
-                for (int j = 0; j < arr[i]; j++) {
-                    sb.append(i+"\n");
+                while(arr[i]-- > 0){
+                    bw.write(i+"\n");
                 }
             }
         }
-        System.out.println(sb);
-    }
-}
 
+        bw.flush();
+        bw.close();
+
+    }
+    
+}
