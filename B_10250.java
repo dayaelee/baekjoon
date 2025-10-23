@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Main{
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,25 +20,28 @@ public class Main {
 
             int g = n/h; // 열 
             int last = n%h;
-            String ans = "";
+            // String ans = "";
+            int tmp;
+            int anstmp=-1;
             if (last>0){
-                String tmp = ""+last;
-                if ((""+g).length()<2){
-                    if(g+1<10){
-                        tmp = tmp+"0";
-                    }
-                }
-                int anstmp = (g+1);
-                ans = ""+tmp+anstmp;
+                tmp = last;
+                // if ((""+g).length()<2){
+                //     if(g+1<10){
+                //         tmp = tmp+"0";
+                //     }
+                // }
+                anstmp = (g+1);
+                // ans = ""+tmp+anstmp;
             }else{
-                String tmp = ""+h;
-                if ((""+g).length()<2){
-                    tmp = tmp+"0";
-                }
-                int anstmp = g;
-                ans = ""+tmp+anstmp;
+                tmp = h;
+                // if ((""+g).length()<2){
+                //     tmp = tmp+"0";
+                // }
+                anstmp = g;
+                // ans = ""+tmp+anstmp;
             }
-            bw.write(ans+"\n");
+            // bw.write(ans+"\n");
+            bw.write(String.format("%d%02d\n", tmp, anstmp));
         }
 
         bw.flush();
