@@ -3,45 +3,28 @@ import java.util.*;
 
 public class Main {
 
-    static class Member{
-        String name;
-        String status;
-        
-        Member(String name, String status){
-            this.name = name;
-            this.status = status;
-        }
-
-    }
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String tmp = br.readLine();
 
         int n = Integer.parseInt(tmp);
 
-        Member[] members = new Member[n];
-        HashMap<String, String> map = new HashMap<>();
+        Set<String> set = new HashSet();
 
         for(int i = 0; i<n; i++){
-            String tmp2 = br.readLine();
-            StringTokenizer st = new StringTokenizer(tmp2);
+            StringTokenizer st = new StringTokenizer(br.readLine());
             String key = st.nextToken();
-            if (map.containsKey(key)){
-                map.replace(key, st.nextToken());
-            } else{
-                map.put(key, st.nextToken());
+            String status = st.nextToken();
+            if(status.equals("enter"))
+                set.add(key);
+            else{
+                set.remove(key);
             }
         }
 
-        List<String> answer = new ArrayList<>();
+        String[] answer = set.toArray(new String[set.size()]);
 
-        for(String key : map.keySet()){
-            if(map.get(key).equals("enter")){
-                answer.add(key);
-            }
-        }
-
-        Collections.sort(answer, Collections.reverseOrder());
+        Arrays.sort(answer, (o1, o2)->o2.compareTo(o1));
 
         for(String value: answer){
             System.out.println(value);
