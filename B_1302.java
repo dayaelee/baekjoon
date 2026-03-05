@@ -1,45 +1,37 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
-
 public class Main {
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String str = br.readLine();
 
         int n = Integer.parseInt(str);
-        HashMap<String, Integer> h1 = new HashMap<String, Integer>();
 
-        for (int i = 0; i < n; i++) {
-            str = br.readLine();
-            if (!h1.containsKey(str)) {
-                h1.putIfAbsent(str, 1);
-            } else{
-                h1.replace(str, h1.get(str)+1);
+        HashMap<String, Integer> hm = new HashMap<>();
+        for(int i = 0; i<n; i++){
+            String tmp = br.readLine();
+
+            if(hm.containsKey(tmp)){
+                hm.put(tmp, hm.get(tmp)+1);
+            }else{
+                hm.put(tmp, 1);
             }
         }
 
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(hm.entrySet());
 
-        int maxV = 0;
-        String answer="";
 
-        List<Map.Entry<String, Integer>> list = new ArrayList<>(h1.entrySet());
-        Collections.sort(list, Map.Entry.comparingByKey());
-
-        LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<>();
-        for (Map.Entry<String, Integer> entry : list){
-            sortedMap.put(entry.getKey(), entry.getValue());
+        entries.sort((e1, e2) ->{
+            if(e1.getValue()==e2.getValue())
+                return e1.getKey().compareTo(e2.getKey());
+            return e2.getValue().compareTo(e1.getValue());
+        });
+        for(Map.Entry<String, Integer> entry :entries){
+            System.out.println(entry.getKey());
+            break;
+            
         }
-
-        for (Map.Entry<String, Integer> entry : sortedMap.entrySet()){
-            int ev = entry.getValue();
-            if (maxV<ev){
-                maxV=ev;
-                answer = entry.getKey();
-            }
-        }
-        System.out.println(answer);
     }
+    
+
 }
