@@ -1,43 +1,39 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-    public static int n;
-    public static long[] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
         String str = br.readLine();
+        int n = Integer.parseInt(str);
 
-        n = Integer.parseInt(str);
-
-        arr = new long[n];
+        int[] arr = new int[n];
+        
+        
         for(int i = 0; i<n; i++){
             str = br.readLine();
-            arr[i] = Long.parseLong(str);
+            arr[i]=Integer.parseInt(str);            
         }
 
-        Arrays.sort(arr);
-
-        long[] ts = new long[n * (n + 1) / 2];
-        int idx = 0; 
+        int[] sum = new int[n*(n+1)/2];
+        int summIdx=0;
         for(int i = 0; i<n; i++){
             for(int j = i; j<n; j++){
-                ts[idx++] = arr[i] + arr[j];
+                sum[summIdx++] = arr[i] + arr[j]; 
+            }
+        }
+        int ans=0;
+        Arrays.sort(sum);
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<n; j++){
+                if(Arrays.binarySearch(sum, (arr[i] - arr[j]))>=0){
+                    ans = Math.max(ans, (arr[i]));
+                } 
             }
         }
 
-        Arrays.sort(ts);
-        
-        for(int i = n-1; i>=0; i--){
-            for(int j = 0; j<n; j++){
-                long target = arr[i]-arr[j];
-                if (Arrays.binarySearch(ts, target)>=0){
-                    System.out.println(arr[i]);
-                    return; 
-                }
-            }
-        }
-        
+        System.out.println(ans);
     }
     
 }
