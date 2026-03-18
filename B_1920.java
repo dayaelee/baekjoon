@@ -27,12 +27,33 @@ public class Main {
 
         Arrays.sort(arr);
 
+        
         for(int i = 0; i<m; i++){
-            int idx = Arrays.binarySearch(arr, check[i]);
-            bw.write((idx>=0? 1:0)+"\n");
+            bw.write((binaryS(check[i], n, arr)>=0?1: 0) +"\n");
         }
 
+        
         bw.flush();
         bw.close();
+    }
+
+    public static int binaryS(int value, int n, int[] arr){
+        int s= 0;
+        int e= n-1;
+
+        int mid;
+        while(s<=e){
+            mid = (s+e)/2;
+
+            if(arr[mid] == value){
+                return 1;
+            } else if(arr[mid]> value){
+                e=mid-1;
+            } else if (arr[mid]< value){
+                s=mid+1;
+            }
+        }
+
+        return -1;
     }
 }
