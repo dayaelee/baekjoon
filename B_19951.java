@@ -1,50 +1,47 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
-
-    public static int n, m;
-    public static int[] plus;
-    public static int[] now;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         String str = br.readLine();
-
         StringTokenizer st = new StringTokenizer(str);
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
 
-        now = new int[n+2];
-        plus = new int[n+2];
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
+        int[] arr = new int[n+2];
         str = br.readLine();
         st = new StringTokenizer(str);
         for(int i = 1; i<=n; i++){
-            now[i]=Integer.parseInt(st.nextToken());
+            arr[i]=Integer.parseInt(st.nextToken());
         }
 
+        int check[] = new int[n+2];
         for(int i = 0; i<m; i++){
             str = br.readLine();
             st = new StringTokenizer(str);
-            int a = Integer.parseInt(st.nextToken());
-            int b = Integer.parseInt(st.nextToken());
-            int k = Integer.parseInt(st.nextToken());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
 
-            plus[a]+=k;
-            plus[b+1]-=k;
+            check[s]+=v;
+            check[e+1]+=(-v);
         }
 
-        StringBuilder sb = new StringBuilder();
-        int acc = 0;
+        int acc[] = new int[n+2];
         for(int i = 1; i<=n; i++){
-            acc+=plus[i];
-            now[i]+=acc;
-            sb.append(now[i]+" ");
+            acc[i]=acc[i-1]+check[i];
+        }
+        
+        for(int i = 1; i<=n; i++){
+            arr[i]+=acc[i];
+            bw.write(arr[i]+" ");
         }
 
-        System.out.println(sb.toString());
-
-
+        bw.newLine();
+        bw.flush();
+        bw.close();
     }
-    
 }
