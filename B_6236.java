@@ -1,64 +1,55 @@
-
 import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static int n, m;
-    public static int[] arr;
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
+        BufferedReader  br = new BufferedReader(new InputStreamReader(System.in));
 
+
+
+        String str = br.readLine();
         StringTokenizer st = new StringTokenizer(str);
+
+        int n,  m; 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        arr = new int[n];
-
-        int left=0;
-        int right=0;
-
+        int[] arr = new int[n];
+        long l=0;
         for(int i = 0; i<n; i++){
-            str = br.readLine();
-            arr[i]=Integer.parseInt(str);
-            left = Math.max(left, arr[i]);
-            right+=arr[i];
+            arr[i]=Integer.parseInt(br.readLine());
+            l=Math.max(arr[i], l);
         }
 
-        int answer=right;
+        long r = 1000000000;
+        long ans = Integer.MAX_VALUE;
+        
+        while(l<=r){
+            long mid = (l+r)/2;
+            int cnt = 1;
+            long money = mid;
 
-        while(left <=right){
-            int mid = (left+right)/2; 
-            if (checking(mid)==1){
-                answer = mid;
-                right = mid-1;
-            }else{
-                left = mid+1;
-            }
-        }
-        System.out.println(answer);
-    }
-
-    public static int checking(int mid){
-        // 체크하는 곳. 
-        int cnt = 1;
-        int rightV = mid;
-        int now = mid;
-        for(int i = 0; i<arr.length; i++){
-            if(now-arr[i]<0){
-                cnt+=1;
-                now=rightV;
-                if (now-arr[i]<0){
-                    return 0;
+            for(int i = 0; i<n; i++){
+                if(money<arr[i]){ // 쓸돈 부족한 경우 
+                    cnt+=1;
+                    money=mid;
                 }
+                money-=arr[i];
             }
-            now-=arr[i];
+
+            
+            if(cnt<=m){
+                r=mid-1;
+                ans = mid;
+                // System.out.println("ans: "+ ans);
+            }else{
+                l=mid+1;
+            }
         }
 
-        if(cnt<=m) {
-            return 1;
-        }
-        return 0;
+        
+        System.out.println(ans);
+
     }
+    
 }
